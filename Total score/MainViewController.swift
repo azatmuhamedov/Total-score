@@ -9,11 +9,11 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    let titleLabel: UILabel = {
+    let titleLabel: UILabel = { //добавляем лейбл сверху верхний
         let label = UILabel()
         label.text = "Total score"
         label.textColor = .black
-        label.font = UIFont(name: "Avenir Next Bold", size: 40)
+        label.font = UIFont(name: "Avenir Next Bold", size: 40) //шрифт и размер
         label.translatesAutoresizingMaskIntoConstraints = false //это свойство говорит, что я сам буду распологать лейбл снизу в экстеншн
         return label
         
@@ -25,6 +25,19 @@ class MainViewController: UIViewController {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Enter the invoice amout and click \"Calculate\"" //  \чтобы вывести кавычки на экран
+        label.textColor = .black
+        label.font = UIFont(name: "Avenir Next Bold", size: 15)
+        label.adjustsFontSizeToFitWidth = true //  размер лейбла будет изменяться в зависимости от кол-ва символов
+        label.minimumScaleFactor = 0.7  //размер текста не может быть меньше чем 15х0.7
+        label.numberOfLines = 2 // текст может распологаться на 2 строки
+        label.textAlignment = .center // выравнивание по центру
+        label.translatesAutoresizingMaskIntoConstraints = false //это свойство говорит, что я сам буду распологать лейбл снизу в экстеншн
+        return label
+        
         
     }()
     
@@ -41,7 +54,7 @@ class MainViewController: UIViewController {
         
         view.addSubview(titleLabel)
         view.addSubview(logoImageView)
-        
+        view.addSubview(descriptionLabel)
     }
     
     
@@ -56,10 +69,15 @@ extension MainViewController {
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10), //расположение лейбла, отступ сверху 10
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor), // расположение по центру
         
-            logoImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10), // расположение картинки. отступ сверху от лейбла 10
+            logoImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10), //расположение картинки.отступ сверху от лейбла 10
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor), //по центру картинка
             logoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5), //ширина картинки. взяли ширину экрана и умножили на 0.5,те при любом экране будет занимать половину экрана
             logoImageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5), // высота картинки (одинаковая с шириной)
+            
+            descriptionLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 15), //расположение лейбла под картинкой, отступ ОТ картинки 15
+            //descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20), //текст отсутпает от края левого экрана на 20, на ЛЮБОМ экране
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20) //отступ текста правого инижнего ВСЕГда с минусом
         ])
     }
 }
