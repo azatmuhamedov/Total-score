@@ -10,9 +10,9 @@ import UIKit
 
 class PersonsView: UIView {
    
-   let titleLabel: UILabel = { //добавляем лейбл внутри вью
+   let titleLabel: UILabel = {             //добавляем лейбл внутри вью
        let label = UILabel()
-       label.text = "Persons" //текст внутри вью
+       label.text = "Persons"              //текст внутри вью
        label.textColor = #colorLiteral(red: 0.2454499006, green: 0.2894837558, blue: 0.3496103287, alpha: 1)
        label.font = UIFont(name: "Avenir Next Bold", size: 14) //шрифт и размер
        label.translatesAutoresizingMaskIntoConstraints = false //это свойство говорит, что я сам буду распологать лейбл снизу в экстеншн
@@ -26,8 +26,39 @@ class PersonsView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-   
-   
+    
+    var minusButton: UIButton = {                  //создаю кнопку/ с 13 хсоде надо писать  lazy var
+        let button = UIButton(type: .system)       //тип систем чтобы кнопка щелкала
+        button.setTitle("—", for: .normal)         //что написано в кнопке/минус
+        button.tintColor = #colorLiteral(red: 0.4510066509, green: 0.4966486692, blue: 0.5633206367, alpha: 1)                      //тень кнопки
+        button.backgroundColor = .blue
+        button.titleLabel?.font = UIFont(name: "Avenir Next", size: 60)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var plusButton: UIButton = {                  //создаю кнопку/ с 13 хсоде надо писать  lazy var
+        let button = UIButton(type: .system)       //тип систем чтобы кнопка щелкала
+        button.setTitle("+", for: .normal)         //что написано в кнопке/минус
+        button.tintColor = #colorLiteral(red: 0.4510066509, green: 0.4966486692, blue: 0.5633206367, alpha: 1)                      //тень кнопки
+        button.backgroundColor = .blue
+        button.titleLabel?.font = UIFont(name: "Avenir Next", size: 60)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let  counterLabel: UILabel = {             //добавляем лейбл внутри вью
+        let label = UILabel()
+        label.text = "0"              //текст внутри вью
+        label.textColor = .brown
+        label.backgroundColor = .yellow
+        label.textAlignment = .center
+        label.font = UIFont(name: "Avenir Next Bold", size: 50) //шрифт и размер
+        label.translatesAutoresizingMaskIntoConstraints = false //это свойство говорит, что я сам буду распологать лейбл снизу в экстеншн
+        return label
+    }()
+    
+    
    override init(frame: CGRect) {
        super.init(frame: frame)
        
@@ -46,6 +77,10 @@ class PersonsView: UIView {
        
        addSubview(titleLabel)
       addSubview(backgroundWhiteView)
+       backgroundWhiteView.addSubview(minusButton) //кнопку рaсположил внутри вьюхи на заднем фоне
+       addSubview(plusButton)
+       backgroundWhiteView.addSubview(counterLabel)
+       
    }
    
    func setConstraints() { //расположение
@@ -57,8 +92,23 @@ class PersonsView: UIView {
            backgroundWhiteView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4), //отступ от верх границы на 4
            backgroundWhiteView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
            backgroundWhiteView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-           backgroundWhiteView.heightAnchor.constraint(equalToConstant: 100)
+           backgroundWhiteView.heightAnchor.constraint(equalToConstant: 100),
        
+           minusButton.topAnchor.constraint(equalTo: backgroundWhiteView.topAnchor, constant: 0),
+           minusButton.leadingAnchor.constraint(equalTo: backgroundWhiteView.leadingAnchor, constant: 0),
+           minusButton.heightAnchor.constraint(equalTo: backgroundWhiteView.heightAnchor), //высота как вьюха
+           minusButton.widthAnchor.constraint(equalToConstant: 80), //ширина
+           
+           plusButton.topAnchor.constraint(equalTo: backgroundWhiteView.topAnchor, constant: 0),
+           plusButton.trailingAnchor.constraint(equalTo: backgroundWhiteView.trailingAnchor, constant: 0),
+           plusButton.heightAnchor.constraint(equalTo: backgroundWhiteView.heightAnchor),
+           plusButton.widthAnchor.constraint(equalToConstant: 80),
+           
+           counterLabel.centerYAnchor.constraint(equalTo: backgroundWhiteView.centerYAnchor), // цифра должна быть по центру оси Y
+           counterLabel.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor, constant: 2),
+           counterLabel.trailingAnchor.constraint(equalTo: plusButton.leadingAnchor, constant: -2),
+           counterLabel.heightAnchor.constraint(equalTo: backgroundWhiteView.heightAnchor),
+           
        ])
    }
    

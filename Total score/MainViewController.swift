@@ -44,6 +44,17 @@ class MainViewController: UIViewController {
     let totalScoreView = TotalScoreView() // добавил экземпляр добавленной вьюхи тоталскорвью
     let personsView = PersonsView() //добавил экземпляр вьюхи персонвью
     
+    var calculateButton: UIButton = {                    //создаю кнопку в самом низу/ с 13 хсоде надо писать  lazy var
+        let button = UIButton(type: .system)             //тип систем чтобы кнопка щелкала
+        button.setTitle("Calculate", for: .normal)         //что написано в кнопке
+        button.tintColor = .white
+        button.layer.cornerRadius = 10
+        button.backgroundColor = #colorLiteral(red: 0.6393250823, green: 0.2680583298, blue: 0.7918022871, alpha: 1)
+        button.titleLabel?.font = UIFont(name: "Avenir Next Bold", size: 25)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override func viewDidLoad() {  // вьюдидло это метод, который срабатывает автоматом при запуске вью контроллера/ с него начинается загрузка
         super.viewDidLoad()
         
@@ -60,6 +71,7 @@ class MainViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(totalScoreView)
         view.addSubview(personsView)
+        view.addSubview(calculateButton)
     }
     
     
@@ -74,7 +86,7 @@ extension MainViewController {
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10), //расположение лейбла, отступ сверху 10
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor), // расположение по центру
         
-            logoImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10), //расположение картинки.отступ сверху от лейбла 10
+            logoImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10), //расположение картинки.отступ от НИЗА лейбла 10
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor), //по центру картинка
             logoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5), //ширина картинки. взяли ширину экрана и умножили на 0.5,те при любом экране будет занимать половину экрана
             logoImageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5), // высота картинки (одинаковая с шириной)
@@ -92,9 +104,13 @@ extension MainViewController {
             personsView.topAnchor.constraint(equalTo: totalScoreView.bottomAnchor, constant: 10),
             personsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             personsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            personsView.heightAnchor.constraint(equalToConstant: 130)
+            personsView.heightAnchor.constraint(equalToConstant: 130),
             
-            
+            calculateButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20), // отступ снизу
+            calculateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            calculateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            calculateButton.heightAnchor.constraint(equalToConstant: 50)
+            // calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor) // по центру
             
         ])
     }
