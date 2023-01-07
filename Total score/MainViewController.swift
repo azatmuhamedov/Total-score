@@ -41,6 +41,9 @@ class MainViewController: UIViewController {
         
     }()
     
+    let totalScoreView = TotalScoreView() // добавил экземпляр добавленной вьюхи тоталскорвью
+    let personsView = PersonsView() //добавил экземпляр вьюхи персонвью
+    
     override func viewDidLoad() {  // вьюдидло это метод, который срабатывает автоматом при запуске вью контроллера/ с него начинается загрузка
         super.viewDidLoad()
         
@@ -55,6 +58,8 @@ class MainViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(logoImageView)
         view.addSubview(descriptionLabel)
+        view.addSubview(totalScoreView)
+        view.addSubview(personsView)
     }
     
     
@@ -77,7 +82,20 @@ extension MainViewController {
             descriptionLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 15), //расположение лейбла под картинкой, отступ ОТ картинки 15
             //descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20), //текст отсутпает от края левого экрана на 20, на ЛЮБОМ экране
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20) //отступ текста правого инижнего ВСЕГда с минусом
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20), //отступ текста правого инижнего ВСЕГда с минусом
+            
+            totalScoreView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10), //кастом вью отходит от описания на 10
+            totalScoreView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            totalScoreView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            totalScoreView.heightAnchor.constraint(equalToConstant: 130), //  высота вьюхи
+            
+            personsView.topAnchor.constraint(equalTo: totalScoreView.bottomAnchor, constant: 10),
+            personsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            personsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            personsView.heightAnchor.constraint(equalToConstant: 130)
+            
+            
+            
         ])
     }
 }
