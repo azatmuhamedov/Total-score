@@ -107,10 +107,11 @@ extension MainViewController {
             personsView.heightAnchor.constraint(equalToConstant: 130),
             
             calculateButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20), // отступ снизу
+            calculateButton.heightAnchor.constraint(equalToConstant: 50),
             calculateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             calculateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            calculateButton.heightAnchor.constraint(equalToConstant: 50)
-            // calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor) // по центру
+            //calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor), // по центру
+            
             
         ])
     }

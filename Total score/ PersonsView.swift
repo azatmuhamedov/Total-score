@@ -23,6 +23,7 @@ class PersonsView: UIView {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.9561659694, green: 0.9591339231, blue: 0.9530903697, alpha: 1)
         view.layer.cornerRadius = 10
+        //view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -31,7 +32,7 @@ class PersonsView: UIView {
         let button = UIButton(type: .system)       //тип систем чтобы кнопка щелкала
         button.setTitle("—", for: .normal)         //что написано в кнопке/минус
         button.tintColor = #colorLiteral(red: 0.4510066509, green: 0.4966486692, blue: 0.5633206367, alpha: 1)                      //тень кнопки
-        button.backgroundColor = .blue
+        //button.backgroundColor = .blue
         button.titleLabel?.font = UIFont(name: "Avenir Next", size: 60)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -41,7 +42,7 @@ class PersonsView: UIView {
         let button = UIButton(type: .system)       //тип систем чтобы кнопка щелкала
         button.setTitle("+", for: .normal)         //что написано в кнопке/минус
         button.tintColor = #colorLiteral(red: 0.4510066509, green: 0.4966486692, blue: 0.5633206367, alpha: 1)                      //тень кнопки
-        button.backgroundColor = .blue
+        //button.backgroundColor = .blue
         button.titleLabel?.font = UIFont(name: "Avenir Next", size: 60)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -50,8 +51,8 @@ class PersonsView: UIView {
     let  counterLabel: UILabel = {             //добавляем лейбл внутри вью
         let label = UILabel()
         label.text = "0"              //текст внутри вью
-        label.textColor = .brown
-        label.backgroundColor = .yellow
+        label.textColor = #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)
+        //label.backgroundColor = .yellow
         label.textAlignment = .center
         label.font = UIFont(name: "Avenir Next Bold", size: 50) //шрифт и размер
         label.translatesAutoresizingMaskIntoConstraints = false //это свойство говорит, что я сам буду распологать лейбл снизу в экстеншн
@@ -76,9 +77,9 @@ class PersonsView: UIView {
        translatesAutoresizingMaskIntoConstraints = false //TAMIC  вручную будет распологать
        
        addSubview(titleLabel)
-      addSubview(backgroundWhiteView)
+       addSubview(backgroundWhiteView)
        backgroundWhiteView.addSubview(minusButton) //кнопку рaсположил внутри вьюхи на заднем фоне
-       addSubview(plusButton)
+       backgroundWhiteView.addSubview(plusButton)
        backgroundWhiteView.addSubview(counterLabel)
        
    }
