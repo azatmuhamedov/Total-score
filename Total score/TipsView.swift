@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TipsView: UIView {
+class TipsView: UIView {  //  класс для оформления чаевых
     
     let titleLabel: UILabel = {             //добавляем лейбл внутри вью
         let label = UILabel()
@@ -22,14 +22,16 @@ class TipsView: UIView {
         let collectionViewLayout = UICollectionViewFlowLayout() // отвечает за распределение ячеек
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .yellow
         return collectionView
     }()
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect) { //инициализатор. CGREct - размер
         super.init(frame: frame)
         
         setupView()
         setConstraints()
+        setDelegates()
     }
     
     required init?(coder: NSCoder) {
@@ -37,10 +39,41 @@ class TipsView: UIView {
     }
     
     func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
+        addSubview(collectionView)
+        collectionView.register(TipsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    }
+    
+    func setDelegates() {
+        collectionView.delegate = self  //делегаты определяют кто будет упарвлять этой коллекцией
+        collectionView.dataSource = self
     }
 }
+extension TipsView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        4 //возвращаю 4 ячейки
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) // создаю одну ячейку и переиспользую 4 раза!
+                as? TipsCollectionViewCell else {
+            return UICollectionViewCell()
+            
+        }
+        return cell
+    }
+}
+extension TipsView: UICollectionViewDelegate {
+    
+}
 
+extension TipsView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.height, height: collectionView.frame.height)
+    }
+    
+}
 extension TipsView {
     
     func setConstraints() {
@@ -48,26 +81,10 @@ extension TipsView {
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 2), //расположение лейбла внутри вьюхи,  сверху впритык
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15), //слева отступ 5
             
-           /* backgroundWhiteView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4), //отступ от верх границы на 4
-            backgroundWhiteView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            backgroundWhiteView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            backgroundWhiteView.heightAnchor.constraint(equalToConstant: 100),
-        
-            minusButton.topAnchor.constraint(equalTo: backgroundWhiteView.topAnchor, constant: 0),
-            minusButton.leadingAnchor.constraint(equalTo: backgroundWhiteView.leadingAnchor, constant: 0),
-            minusButton.heightAnchor.constraint(equalTo: backgroundWhiteView.heightAnchor), //высота как вьюха
-            minusButton.widthAnchor.constraint(equalToConstant: 80), //ширина
-            
-            plusButton.topAnchor.constraint(equalTo: backgroundWhiteView.topAnchor, constant: 0),
-            plusButton.trailingAnchor.constraint(equalTo: backgroundWhiteView.trailingAnchor, constant: 0),
-            plusButton.heightAnchor.constraint(equalTo: backgroundWhiteView.heightAnchor),
-            plusButton.widthAnchor.constraint(equalToConstant: 80),
-            
-            counterLabel.centerYAnchor.constraint(equalTo: backgroundWhiteView.centerYAnchor), // цифра должна быть по центру оси Y
-            counterLabel.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor, constant: 2),
-            counterLabel.trailingAnchor.constraint(equalTo: plusButton.leadingAnchor, constant: -2),
-            counterLabel.heightAnchor.constraint(equalTo: backgroundWhiteView.heightAnchor),
-        */
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            collectionView.heightAnchor.constraint(equalToConstant: 100)
         
         ])
     }

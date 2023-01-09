@@ -43,6 +43,7 @@ class MainViewController: UIViewController {
     
     let totalScoreView = TotalScoreView() // добавил экземпляр добавленной вьюхи тоталскорвью
     let personsView = PersonsView() //добавил экземпляр вьюхи персонвью
+    let tipsView = TipsView() //    добавил вьюху чаевых
     
     var calculateButton: UIButton = {                    //создаю кнопку в самом низу/ с 13 хсоде надо писать  lazy var
         let button = UIButton(type: .system)             //тип систем чтобы кнопка щелкала
@@ -72,6 +73,7 @@ class MainViewController: UIViewController {
         view.addSubview(totalScoreView)
         view.addSubview(personsView)
         view.addSubview(calculateButton)
+        view.addSubview(tipsView)
     }
     
     
@@ -106,12 +108,16 @@ extension MainViewController {
             personsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             personsView.heightAnchor.constraint(equalToConstant: 130),
             
+            tipsView.topAnchor.constraint(equalTo: personsView.bottomAnchor, constant: 10),
+            tipsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tipsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tipsView.heightAnchor.constraint(equalToConstant: 100),
+            
             calculateButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20), // отступ снизу
             calculateButton.heightAnchor.constraint(equalToConstant: 50),
             calculateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             calculateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             //calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor), // по центру
-            
             
         ])
     }
