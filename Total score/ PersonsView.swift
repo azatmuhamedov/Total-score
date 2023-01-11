@@ -28,12 +28,14 @@ class PersonsView: UIView {
         return view
     }()
     
-    var minusButton: UIButton = {                  //создаю кнопку/ с 13 хсоде надо писать  lazy var
+    var minusButton: UIButton = {                  //создаю кнопку/ с 13 хсоде надо писать  lazy var???
         let button = UIButton(type: .system)       //тип систем чтобы кнопка щелкала
         button.setTitle("—", for: .normal)         //что написано в кнопке/минус
         button.tintColor = #colorLiteral(red: 0.4510066509, green: 0.4966486692, blue: 0.5633206367, alpha: 1)                      //тень кнопки
         //button.backgroundColor = .blue
         button.titleLabel?.font = UIFont(name: "Avenir Next", size: 60)
+        button.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside) //self  нажатие на себя
+        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -44,6 +46,7 @@ class PersonsView: UIView {
         button.tintColor = #colorLiteral(red: 0.4510066509, green: 0.4966486692, blue: 0.5633206367, alpha: 1)                      //тень кнопки
         //button.backgroundColor = .blue
         button.titleLabel?.font = UIFont(name: "Avenir Next", size: 60)
+        button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside) //задаю действие кнопки
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -59,6 +62,7 @@ class PersonsView: UIView {
         return label
     }()
     
+    var counter = 0
     
    override init(frame: CGRect) {
        super.init(frame: frame)
@@ -84,6 +88,24 @@ class PersonsView: UIView {
        
    }
    
+    @objc func minusButtonTapped() {
+        
+       //* if counter != 0 {                            //если значение не 0, то выполняются действия(чтобы не уходил в минус)
+            counter -= 1                            //при нажатии будет уменьш на единицу
+            counterLabel.text = "\(counter)"       //а в тексте будет значение каунтера
+        
+    
+    if counter == 0 {
+        minusButton.isEnabled = false
+    }
+    }
+        
+    @objc func plusButtonTapped() {
+        counter += 1   //при нажатии будет увелич на единицу
+        counterLabel.text = "\(counter)" // а в тексте будет значение каунтера
+        minusButton.isEnabled = true
+    }
+    
    func setConstraints() { //расположение
        
        NSLayoutConstraint.activate([

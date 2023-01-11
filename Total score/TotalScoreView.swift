@@ -23,7 +23,8 @@ class TotalScoreView: UIView {
         let textField = UITextField()
         textField.backgroundColor = #colorLiteral(red: 0.9561659694, green: 0.9591339231, blue: 0.9530903697, alpha: 1) //фон поля ввода
         textField.layer.cornerRadius = 10 // скругление углов текстфилда
-        textField.textColor = .brown //цвет введенного текста/числа
+        textField.textColor = .black //цвет введенного текста/числа
+        textField.tintColor = #colorLiteral(red: 0.6007780817, green: 0.89, blue: 0.8550943747, alpha: 1)
         textField.font = UIFont(name: "Avenir Next Bold", size: 50)
         textField.textAlignment = .center // центрирование текста по центру
         textField.keyboardType = .numberPad //добавил появление клавы / вызвать клаву cmd+K

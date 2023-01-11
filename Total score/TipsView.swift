@@ -20,11 +20,15 @@ class TipsView: UIView {  //  класс для оформления чаевы�
     
     let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout() // отвечает за распределение ячеек
+        //collectionViewLayout.minimumInteritemSpacing = 5         // минимальное расстояние между ячейками
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .yellow
+        //collectionView.backgroundColor = .yellow
         return collectionView
     }()
+    
+    let tipsArray = ["0%", "10%", "15%", "20%"]
+    var tipsCount = 0
     
     override init(frame: CGRect) { //инициализатор. CGREct - размер
         super.init(frame: frame)
@@ -56,21 +60,39 @@ extension TipsView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) // создаю одну ячейку и переиспользую 4 раза!
                 as? TipsCollectionViewCell else {
             return UICollectionViewCell()
             
         }
+        cell.procentLabel.text = tipsArray[indexPath.row]  //текст будет заполняться в зависимости от ячейки
         return cell
     }
 }
 extension TipsView: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //это метод отвечает за нажатие на ячейку
+        switch indexPath.row {   //перебирание свичем
+        //case 0:
+          //  tipsCount = 1
+        case 1:
+            tipsCount = 10
+        case 2:
+            tipsCount = 15
+        case 3:
+            tipsCount = 20
+        default:
+            tipsCount = 0
+        }
+    }
+    
 }
 
 extension TipsView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.height, height: collectionView.frame.height)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {         //этот метод отвечает за рсположение ячеек
+        CGSize(width: collectionView.frame.width / 4.5,
+               height: collectionView.frame.width / 4.5)
     }
     
 }
@@ -81,10 +103,10 @@ extension TipsView {
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 2), //расположение лейбла внутри вьюхи,  сверху впритык
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15), //слева отступ 5
             
-            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            collectionView.heightAnchor.constraint(equalToConstant: 100)
+            collectionView.heightAnchor.constraint(equalToConstant: 90)
         
         ])
     }

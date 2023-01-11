@@ -50,8 +50,9 @@ class MainViewController: UIViewController {
         button.setTitle("Calculate", for: .normal)         //что написано в кнопке
         button.tintColor = .white
         button.layer.cornerRadius = 10
-        button.backgroundColor = #colorLiteral(red: 0.6393250823, green: 0.2680583298, blue: 0.7918022871, alpha: 1)
+        button.backgroundColor = #colorLiteral(red: 0.351745082, green: 0.7647058964, blue: 0.6571922819, alpha: 1)
         button.titleLabel?.font = UIFont(name: "Avenir Next Bold", size: 25)
+        button.addTarget(self, action: #selector(calculateButtonTapped), for: .touchUpInside) // добавляю действие
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -61,6 +62,7 @@ class MainViewController: UIViewController {
         
         setupViews()  //сначала запускается объект? а потом его расположение? иначе будут ошибки
         setConstrains()
+        addTap()
         
     }
 
@@ -77,8 +79,33 @@ class MainViewController: UIViewController {
     }
     
     
+    @objc func calculateButtonTapped() {
+        guard let totalScore = totalScoreView.sumTextField.text,
+              let totalScoreInt = Int(totalScore) else { return }
+        
+        let summ = totalScoreInt + totalScoreInt * (tipsView.tipsCount / 100)
+        let persons = personsView.counter
+      
+        if persons == 0 {
+            descriptionLabel.text = "Enter persons count"
+            descriptionLabel.textColor = .red
+        } else {
+            let result = summ / persons
+            descriptionLabel.text = "\(result) per person"
+            descriptionLabel.textColor = .black
+        }
+        
+        
+    }
     
-    
+    func addTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 extension MainViewController {
@@ -113,8 +140,8 @@ extension MainViewController {
             tipsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tipsView.heightAnchor.constraint(equalToConstant: 100),
             
-            calculateButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20), // отступ снизу
-            calculateButton.heightAnchor.constraint(equalToConstant: 50),
+            calculateButton.topAnchor.constraint(equalTo: tipsView.bottomAnchor, constant: 20), // отступ снизу
+            calculateButton.heightAnchor.constraint(equalToConstant: 60),
             calculateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             calculateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             //calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor), // по центру

@@ -20,6 +20,17 @@ class TipsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    override var isSelected: Bool {          //выделение кнопки при нажитии
+        didSet {
+            if isSelected {                //если ячейка выбрана, то цвет розовый и ширина 3
+                layer.borderWidth = 3
+                layer.borderColor = #colorLiteral(red: 0.6007780817, green: 0.89, blue: 0.8550943747, alpha: 1)
+            } else {                      //если ячейка не выбрана, то ширина 0
+                layer.borderWidth = 0
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
