@@ -83,7 +83,7 @@ class MainViewController: UIViewController {
         guard let totalScore = totalScoreView.sumTextField.text,
               let totalScoreInt = Int(totalScore) else { return }
         
-        let summ = totalScoreInt + totalScoreInt * (tipsView.tipsCount / 100)
+        let summ = totalScoreInt + totalScoreInt * tipsView.tipsCount / 100
         let persons = personsView.counter
       
         if persons == 0 {
